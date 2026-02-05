@@ -3,6 +3,25 @@
 @section('title', 'Dashboard')
 
 @section('content')
+<!-- Success/Error Messages -->
+@if(session('success'))
+    <div class="alert alert-success alert-dismissible mb-4" role="alert">
+        <i class="fas fa-check-circle me-2"></i>{{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+@endif
+
+@if(session('error'))
+    <div class="alert alert-danger alert-dismissible mb-4" role="alert">
+        <i class="fas fa-exclamation-triangle me-2"></i>{{ session('error') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    @php
+        // Clear the access error flag to prevent duplicates
+        session()->forget('access_error_shown');
+    @endphp
+@endif
+
 <div class="alert alert-info mb-4">
     <i class="fas fa-user me-2"></i>
     <strong>Anda login sebagai:</strong> {{ Auth::user()->name }} 

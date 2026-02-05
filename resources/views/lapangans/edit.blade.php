@@ -100,7 +100,7 @@
                     </div>
                 @endif
                 <input type="file" class="form-control @error('foto') is-invalid @enderror" id="foto" name="foto" accept="image/*" onchange="previewImage(this)">
-                <small class="text-muted">Format: JPG, PNG, maksimal 2MB (kosongkan jika tidak diubah)</small>
+                <small class="text-muted">Format: JPG, PNG, maksimal 10MB (kosongkan jika tidak diubah)</small>
                 @error('foto')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror

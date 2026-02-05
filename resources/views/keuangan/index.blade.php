@@ -291,7 +291,6 @@ function exportReport() {
                 <select class="form-select" id="export-format">
                     <option value="excel">Excel</option>
                     <option value="pdf">PDF</option>
-                    <option value="csv">CSV</option>
                 </select>
             </div>
         `,
@@ -304,7 +303,34 @@ function exportReport() {
         }
     }).then((result) => {
         if (result.isConfirmed) {
-            Swal.fire('Success!', `Report berhasil diekspor ke format ${result.value.format.toUpperCase()}`, 'success');
+            const format = result.value.format;
+            
+            // Get current filter parameters
+            const start = document.getElementById('start')?.value || '';
+            const end = document.getElementById('end')?.value || '';
+            const lapangan = document.getElementById('lapangan')?.value || '';
+            
+            // Build URL with parameters
+            let url = '';
+            if (format === 'excel') {
+                url = '{{ route("keuangan.export-excel") }}';
+            } else if (format === 'pdf') {
+                url = '{{ route("keuangan.export-pdf") }}';
+            }
+            
+            const params = new URLSearchParams();
+            if (start) params.append('start', start);
+            if (end) params.append('end', end);
+            if (lapangan) params.append('lapangan', lapangan);
+            
+            if (params.toString()) {
+                url += '?' + params.toString();
+            }
+            
+            // Open download in new window
+            window.open(url, '_blank');
+            
+            Swal.fire('Success!', `Report berhasil diekspor ke format ${format.toUpperCase()}`, 'success');
         }
     });
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 04, 2026 at 09:29 PM
+-- Generation Time: Feb 05, 2026 at 08:56 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -104,7 +104,30 @@ INSERT INTO `activities` (`id`, `user_id`, `action`, `description`, `ip_address`
 (60, 2, 'user_deleted', 'Menghapus user: Pantai', '127.0.0.1', '2026-02-04 13:23:39', '2026-02-04 13:23:39'),
 (61, 2, 'user_deleted', 'Menghapus user: Dr. Theo Leuschke DVM', '127.0.0.1', '2026-02-04 13:23:41', '2026-02-04 13:23:41'),
 (62, 2, 'user_deleted', 'Menghapus user: Archibald Veum', '127.0.0.1', '2026-02-04 13:23:44', '2026-02-04 13:23:44'),
-(63, 2, 'user_deleted', 'Menghapus user: Dr. Buck Smitham', '127.0.0.1', '2026-02-04 13:23:47', '2026-02-04 13:23:47');
+(63, 2, 'user_deleted', 'Menghapus user: Dr. Buck Smitham', '127.0.0.1', '2026-02-04 13:23:47', '2026-02-04 13:23:47'),
+(64, 19, 'booking_created', 'Membuat booking baru untuk ATC FUTSALL', '127.0.0.1', '2026-02-04 17:41:14', '2026-02-04 17:41:14'),
+(65, 3, 'payment_verified', 'Memverifikasi pembayaran untuk booking 7', '127.0.0.1', '2026-02-04 17:42:39', '2026-02-04 17:42:39'),
+(66, 2, 'lapangan_updated', 'Mengupdate lapangan: lapangan', '127.0.0.1', '2026-02-04 17:44:23', '2026-02-04 17:44:23'),
+(67, 2, 'lapangan_status_toggled', 'Mengubah status lapangan: lapangan', '127.0.0.1', '2026-02-04 17:44:28', '2026-02-04 17:44:28'),
+(68, 2, 'lapangan_deleted', 'Menghapus lapangan: lapangan', '127.0.0.1', '2026-02-04 17:44:33', '2026-02-04 17:44:33'),
+(69, 2, 'lapangan_created', 'Membuat lapangan baru: aaaaa', '127.0.0.1', '2026-02-04 17:45:01', '2026-02-04 17:45:01'),
+(70, 2, 'user_updated', 'Mengupdate user: runiii', '127.0.0.1', '2026-02-04 17:45:26', '2026-02-04 17:45:26'),
+(71, 1, 'settings_updated', 'Mengupdate pengaturan web', '127.0.0.1', '2026-02-04 17:46:09', '2026-02-04 17:46:09'),
+(72, 1, 'lapangan_updated', 'Mengupdate lapangan: aaaaa', '127.0.0.1', '2026-02-04 20:55:47', '2026-02-04 20:55:47'),
+(73, 1, 'lapangan_created', 'Membuat lapangan baru: lapangan bola', '127.0.0.1', '2026-02-04 20:56:47', '2026-02-04 20:56:47'),
+(74, 1, 'lapangan_updated', 'Mengupdate lapangan: ATC FUTSALL', '127.0.0.1', '2026-02-04 20:57:01', '2026-02-04 20:57:01'),
+(75, 1, 'menu_access_updated', 'Memperbarui hak akses menu', '127.0.0.1', '2026-02-04 21:31:41', '2026-02-04 21:31:41'),
+(76, 1, 'menu_access_updated', 'Memperbarui hak akses menu', '127.0.0.1', '2026-02-04 21:36:12', '2026-02-04 21:36:12'),
+(77, 1, 'menu_access_updated', 'Memperbarui hak akses menu', '127.0.0.1', '2026-02-04 21:36:22', '2026-02-04 21:36:22'),
+(78, 1, 'menu_access_updated', 'Memperbarui hak akses menu', '127.0.0.1', '2026-02-04 21:39:10', '2026-02-04 21:39:10'),
+(79, 1, 'menu_access_updated', 'Memperbarui hak akses menu', '127.0.0.1', '2026-02-04 21:39:15', '2026-02-04 21:39:15'),
+(80, 1, 'menu_access_updated', 'Memperbarui hak akses menu', '127.0.0.1', '2026-02-04 21:39:39', '2026-02-04 21:39:39'),
+(81, 1, 'menu_access_updated', 'Memperbarui hak akses menu', '127.0.0.1', '2026-02-04 21:39:47', '2026-02-04 21:39:47'),
+(82, 1, 'menu_access_updated', 'Memperbarui hak akses menu', '127.0.0.1', '2026-02-04 21:42:11', '2026-02-04 21:42:11'),
+(83, 1, 'menu_access_updated', 'Memperbarui hak akses menu', '127.0.0.1', '2026-02-04 21:42:33', '2026-02-04 21:42:33'),
+(84, 1, 'menu_access_updated', 'Memperbarui hak akses menu', '127.0.0.1', '2026-02-05 00:55:32', '2026-02-05 00:55:32'),
+(85, 1, 'menu_access_updated', 'Memperbarui hak akses menu', '127.0.0.1', '2026-02-05 00:55:47', '2026-02-05 00:55:47'),
+(86, 1, 'menu_access_updated', 'Memperbarui hak akses menu', '127.0.0.1', '2026-02-05 00:55:57', '2026-02-05 00:55:57');
 
 -- --------------------------------------------------------
 
@@ -136,7 +159,8 @@ INSERT INTO `bookings` (`id`, `user_id`, `lapangan_id`, `tanggal`, `jam_mulai`, 
 (3, 17, 1, '2026-02-14', '15:00:00', '16:00:00', 100000.00, 'confirmed', 'a', '2026-02-04 12:34:27', '2026-02-04 12:55:46'),
 (4, 17, 1, '2026-02-14', '16:00:00', '18:00:00', 200000.00, 'completed', NULL, '2026-02-04 12:40:09', '2026-02-04 12:55:40'),
 (5, 17, 1, '2026-02-13', '08:00:00', '10:00:00', 200000.00, 'completed', 'a', '2026-02-04 12:49:53', '2026-02-04 12:51:21'),
-(6, 17, 1, '2026-02-06', '15:00:00', '17:00:00', 200000.00, 'completed', NULL, '2026-02-04 12:52:44', '2026-02-04 12:55:43');
+(6, 17, 1, '2026-02-06', '15:00:00', '17:00:00', 200000.00, 'completed', NULL, '2026-02-04 12:52:44', '2026-02-04 12:55:43'),
+(7, 19, 1, '2026-02-10', '12:00:00', '13:00:00', 100000.00, 'confirmed', 'aaaa', '2026-02-04 17:41:13', '2026-02-04 17:42:39');
 
 -- --------------------------------------------------------
 
@@ -161,6 +185,39 @@ CREATE TABLE `cache_locks` (
   `owner` varchar(255) NOT NULL,
   `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `custom_menus`
+--
+
+CREATE TABLE `custom_menus` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `menu_key` varchar(255) NOT NULL,
+  `menu_name` varchar(255) NOT NULL,
+  `description` text DEFAULT NULL,
+  `icon` varchar(255) DEFAULT NULL,
+  `route` varchar(255) DEFAULT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `custom_menus`
+--
+
+INSERT INTO `custom_menus` (`id`, `menu_key`, `menu_name`, `description`, `icon`, `route`, `url`, `is_active`, `created_at`, `updated_at`) VALUES
+(16, 'dashboard', 'Dashboard', 'Halaman utama dashboard', 'fas fa-tachometer-alt', 'dashboard', '/dashboard', 1, NULL, NULL),
+(17, 'bookings', 'Bookings', 'Manajemen booking lapangan', 'fas fa-calendar', 'bookings.index', '/bookings', 1, NULL, NULL),
+(18, 'lapangans', 'Lapangans', 'Manajemen lapangan futsal', 'fas fa-map', 'lapangans.index', '/lapangans', 1, NULL, NULL),
+(19, 'users', 'Kelola User', 'Manajemen pengguna sistem', 'fas fa-users', 'users.index', '/users', 1, NULL, NULL),
+(20, 'keuangan', 'Keuangan', 'Laporan keuangan dan pembayaran', 'fas fa-money-bill-wave', 'keuangan.index', '/keuangan', 1, NULL, NULL),
+(21, 'settings', 'Web Setting', 'Pengaturan sistem', 'fas fa-cog', 'settings.index', '/settings', 1, NULL, NULL),
+(22, 'hakakses', 'Hak Akses', 'Manajemen hak akses menu', 'fas fa-user-shield', 'hakakses.index', '/hakakses', 1, NULL, NULL),
+(23, 'activities', 'Log Activity', 'Log aktivitas sistem', 'fas fa-history', 'activities.index', '/activities', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -238,9 +295,63 @@ CREATE TABLE `lapangans` (
 --
 
 INSERT INTO `lapangans` (`id`, `nama`, `lokasi`, `daerah`, `kapasitas`, `harga_per_jam`, `fasilitas`, `foto`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'ATC FUTSALL', 'Jakarta', 'Jakarta', 10, 100000.00, 'Lampu', 'lapangan/y2Ka5aRd9VbfkfE7YvyhL8CRegH5IKF7XvlsrLi9.jpg', 'aktif', '2026-02-03 09:38:00', '2026-02-04 08:43:41'),
+(1, 'ATC FUTSALL', 'Jakarta', 'Jakarta', 10, 100000.00, 'Lampu', 'lapangan/7YM9lxID4MVM2qpWtcl8Ha1vws2KR1GIARrQsFQx.jpg', 'aktif', '2026-02-03 09:38:00', '2026-02-04 20:57:01'),
 (2, 'AAAA', '222esadw', 'Bandung', 2, 34000.00, 'dwdw', 'lapangan/c97fw4euT5VcdRZyVVYCM3pfJ1CLmPYCuuQ3YNPs.png', 'aktif', '2026-02-04 08:44:14', '2026-02-04 08:55:55'),
-(4, 'swdfwwfwwf', 'wdwdww', 'Surabaya', 6, 33000.00, 'sdfwfw', 'lapangan/m9DfljFVoCrerRjWzv7qKYXyF2N5xb6Ub46UdKMu.webp', 'tidak_aktif', '2026-02-04 11:02:57', '2026-02-04 12:00:04');
+(6, 'aaaaa', 'aaa', 'Yogyakarta', 23, 23000.00, 'aaa', 'lapangan/Rl8s8VoaPW0SPhXIV99HzYwv40Yb08BedNbcbVJq.jpg', 'aktif', '2026-02-04 17:45:01', '2026-02-04 20:55:47'),
+(7, 'lapangan bola', 'aaaa', 'Medan', 1, 56000.00, 'gatau', 'lapangan/WYvBR862IpVg1G514NjlzmKJSoMxo0lrGlZZ9wdr.png', 'aktif', '2026-02-04 20:56:47', '2026-02-04 20:56:47');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `menu_accesses`
+--
+
+CREATE TABLE `menu_accesses` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `role` varchar(255) NOT NULL,
+  `menu_name` varchar(255) NOT NULL,
+  `can_access` tinyint(1) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `menu_accesses`
+--
+
+INSERT INTO `menu_accesses` (`id`, `role`, `menu_name`, `can_access`, `created_at`, `updated_at`) VALUES
+(1, 'superadmin', 'dashboard', 1, '2026-02-04 21:27:01', '2026-02-04 21:27:01'),
+(2, 'superadmin', 'bookings', 1, '2026-02-04 21:27:01', '2026-02-04 21:27:01'),
+(3, 'superadmin', 'lapangans', 1, '2026-02-04 21:27:01', '2026-02-04 21:27:01'),
+(4, 'superadmin', 'users', 1, '2026-02-04 21:27:01', '2026-02-04 21:27:01'),
+(5, 'superadmin', 'keuangan', 1, '2026-02-04 21:27:01', '2026-02-04 21:27:01'),
+(6, 'superadmin', 'settings', 1, '2026-02-04 21:27:01', '2026-02-05 00:55:47'),
+(7, 'superadmin', 'hakakses', 1, '2026-02-04 21:27:01', '2026-02-04 21:27:01'),
+(8, 'superadmin', 'activities', 1, '2026-02-04 21:27:01', '2026-02-05 00:55:57'),
+(9, 'admin', 'dashboard', 1, '2026-02-04 21:27:01', '2026-02-04 21:27:01'),
+(10, 'admin', 'bookings', 1, '2026-02-04 21:27:01', '2026-02-04 21:27:01'),
+(11, 'admin', 'lapangans', 1, '2026-02-04 21:27:01', '2026-02-04 21:27:01'),
+(12, 'admin', 'users', 1, '2026-02-04 21:27:01', '2026-02-04 21:27:01'),
+(13, 'admin', 'keuangan', 1, '2026-02-04 21:27:01', '2026-02-04 21:27:01'),
+(14, 'admin', 'settings', 0, '2026-02-04 21:27:01', '2026-02-04 21:27:01'),
+(15, 'admin', 'hakakses', 0, '2026-02-04 21:27:01', '2026-02-04 21:27:01'),
+(16, 'admin', 'activities', 1, '2026-02-04 21:27:01', '2026-02-04 21:27:01'),
+(17, 'manager', 'dashboard', 1, '2026-02-04 21:27:01', '2026-02-04 21:27:01'),
+(18, 'manager', 'bookings', 1, '2026-02-04 21:27:01', '2026-02-04 21:27:01'),
+(19, 'manager', 'lapangans', 1, '2026-02-04 21:27:01', '2026-02-04 21:27:01'),
+(20, 'manager', 'users', 0, '2026-02-04 21:27:01', '2026-02-04 21:27:01'),
+(21, 'manager', 'keuangan', 1, '2026-02-04 21:27:01', '2026-02-04 21:27:01'),
+(22, 'manager', 'settings', 0, '2026-02-04 21:27:01', '2026-02-04 21:27:01'),
+(23, 'manager', 'hakakses', 0, '2026-02-04 21:27:01', '2026-02-04 21:27:01'),
+(24, 'manager', 'activities', 1, '2026-02-04 21:27:01', '2026-02-04 21:27:01'),
+(25, 'customer', 'dashboard', 1, '2026-02-04 21:27:01', '2026-02-04 21:27:01'),
+(26, 'customer', 'bookings', 1, '2026-02-04 21:27:01', '2026-02-04 21:27:01'),
+(27, 'customer', 'lapangans', 1, '2026-02-04 21:27:01', '2026-02-04 21:27:01'),
+(28, 'customer', 'users', 0, '2026-02-04 21:27:01', '2026-02-04 21:27:01'),
+(29, 'customer', 'keuangan', 0, '2026-02-04 21:27:01', '2026-02-04 21:27:01'),
+(30, 'customer', 'settings', 0, '2026-02-04 21:27:01', '2026-02-04 21:27:01'),
+(31, 'customer', 'hakakses', 0, '2026-02-04 21:27:01', '2026-02-04 21:27:01'),
+(32, 'customer', 'activities', 1, '2026-02-04 21:27:01', '2026-02-04 21:27:01');
 
 -- --------------------------------------------------------
 
@@ -266,7 +377,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (5, '2024_01_01_000004_create_bookings_table', 1),
 (6, '2024_01_01_000005_create_payments_table', 1),
 (7, '2024_01_01_000006_create_activities_table', 1),
-(8, '2026_02_03_154826_create_web_settings_table', 2);
+(8, '2026_02_03_154826_create_web_settings_table', 2),
+(9, '2024_01_01_000001_create_custom_menus_table', 3),
+(10, '2026_01_27_140741_create_menu_accesses_table', 3),
+(11, '2026_01_27_145043_create_role_permissions_table', 3);
 
 -- --------------------------------------------------------
 
@@ -308,7 +422,22 @@ INSERT INTO `payments` (`id`, `booking_id`, `jumlah`, `metode_pembayaran`, `bukt
 (3, 3, 100000.00, 'transfer_bank', NULL, 'verified', NULL, '2026-02-04 12:34:27', '2026-02-04 12:55:46'),
 (4, 4, 200000.00, 'transfer_bank', 'payments/1770234009_bfcaf22b743b06fa30be934d393da533.jpg', 'verified', NULL, '2026-02-04 12:40:09', '2026-02-04 12:55:37'),
 (5, 5, 200000.00, 'cash', NULL, 'verified', NULL, '2026-02-04 12:49:53', '2026-02-04 12:49:53'),
-(6, 6, 200000.00, 'ewallet', 'payments/1770234764_Screenshot_2026-01-27_181009.png', 'verified', NULL, '2026-02-04 12:52:44', '2026-02-04 12:54:37');
+(6, 6, 200000.00, 'ewallet', 'payments/1770234764_Screenshot_2026-01-27_181009.png', 'verified', NULL, '2026-02-04 12:52:44', '2026-02-04 12:54:37'),
+(7, 7, 100000.00, 'transfer_bank', 'payments/1770252073_Screenshot_2026-02-05_015437.png', 'verified', NULL, '2026-02-04 17:41:14', '2026-02-04 17:42:39');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `role_permissions`
+--
+
+CREATE TABLE `role_permissions` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `role_name` varchar(255) NOT NULL,
+  `permissions` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`permissions`)),
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -330,7 +459,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('HkOyUabjO1Tu6NFTLLsuW67qzpYrkJoVinN1rGar', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiR3RPeWltRHZ4YjJMVVJGQ3Y1RGhTdU8wTkwyajU0Sk1kTWsxVlNBWSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9sb2dpbiI7czo1OiJyb3V0ZSI7czo1OiJsb2dpbiI7fX0=', 1770236780);
+('bmgpqJyNRs49BKTrHSPNsqw4OxyPD9y3KieSGXC9', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiN0Z3ZTVzTlFMMWFEWW9OYjlQSjRBbWFHWXdYWDJXNEVMbm5WTENBeiI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MzA6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9rZXVhbmdhbiI7czo1OiJyb3V0ZSI7czoxNDoia2V1YW5nYW4uaW5kZXgiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO30=', 1770278160);
 
 -- --------------------------------------------------------
 
@@ -364,7 +493,8 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `ro
 (3, 'Manager User', 'manager@manfutsal.com', NULL, '$2y$12$zQs7EnUuFuFY463rP3dMfeFUWo/L1fimVo4FKIpIoJRFTi3R5UydO', 'manager', '08123456787', 'Jakarta, Indonesia', NULL, 1, NULL, '2026-02-02 23:57:52', '2026-02-02 23:57:52'),
 (10, 'Stefanie Carroll', 'breanne.casper@example.com', '2026-02-02 23:57:53', '$2y$12$TJWYBB1wKf33RuWTC.Ucqe0ZutDc2yFe0Ht2uXKx.lUFnUVp2ggHu', 'customer', '(843) 606-0149', '507 Sister Heights Suite 792\nWest Otis, UT 66749-8307', NULL, 1, 'wdFMjgqrCT', '2026-02-02 23:57:54', '2026-02-02 23:57:54'),
 (17, 'Chelsicaa', 'chelsica@gmail.com', NULL, '$2y$12$1GcnCp.kSpPUgpOMS5znEexwWhVxtrGNUI04N1.qQ4u7rGepf1eAi', 'customer', '0912912112', 'jakarta', NULL, 1, NULL, '2026-02-04 12:03:58', '2026-02-04 12:04:26'),
-(18, 'lily', 'lily@gmail.com', NULL, '$2y$12$ViFJ.MSbcaiIPo0CrNM7i.7uH5X/etuGQYID76YWEHqLJHWASekCK', 'customer', '113132', '121', NULL, 1, NULL, '2026-02-04 13:26:15', '2026-02-04 13:26:15');
+(18, 'lily', 'lily@gmail.com', NULL, '$2y$12$ViFJ.MSbcaiIPo0CrNM7i.7uH5X/etuGQYID76YWEHqLJHWASekCK', 'customer', '113132', '121', NULL, 1, NULL, '2026-02-04 13:26:15', '2026-02-04 13:26:15'),
+(19, 'runiii', 'runi@Gmail.com', NULL, '$2y$12$jad.CQgmup7cNW1bJ3CDzup8wdhyaz4TI37DoWX3GymVjgCQmHXki', 'customer', '1322', '321', NULL, 1, NULL, '2026-02-04 17:40:32', '2026-02-04 17:45:26');
 
 -- --------------------------------------------------------
 
@@ -387,7 +517,7 @@ CREATE TABLE `web_settings` (
 --
 
 INSERT INTO `web_settings` (`id`, `key`, `value`, `type`, `description`, `created_at`, `updated_at`) VALUES
-(1, 'app_name', 'Soccer', 'string', 'Nama aplikasi', '2026-02-03 09:20:53', '2026-02-04 08:23:12'),
+(1, 'app_name', 'Soccerrr', 'string', 'Nama aplikasi', '2026-02-03 09:20:53', '2026-02-04 17:46:09'),
 (2, 'app_description', 'Sistem Manajemen Futsal', 'string', 'Deskripsi aplikasi', '2026-02-03 09:20:53', '2026-02-03 09:20:53'),
 (3, 'app_email', 'soccer@email.com', 'string', 'Email aplikasi', '2026-02-03 09:20:53', '2026-02-04 08:23:12'),
 (4, 'app_phone', '+62 9223 212', 'string', 'Nomor telepon', '2026-02-03 09:20:53', '2026-02-04 08:23:12'),
@@ -442,6 +572,15 @@ ALTER TABLE `cache_locks`
   ADD KEY `cache_locks_expiration_index` (`expiration`);
 
 --
+-- Indexes for table `custom_menus`
+--
+ALTER TABLE `custom_menus`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `custom_menus_menu_key_unique` (`menu_key`),
+  ADD KEY `custom_menus_menu_key_index` (`menu_key`),
+  ADD KEY `custom_menus_is_active_index` (`is_active`);
+
+--
 -- Indexes for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -468,6 +607,13 @@ ALTER TABLE `lapangans`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `menu_accesses`
+--
+ALTER TABLE `menu_accesses`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `menu_accesses_role_menu_name_unique` (`role`,`menu_name`);
+
+--
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
@@ -486,6 +632,13 @@ ALTER TABLE `payments`
   ADD PRIMARY KEY (`id`),
   ADD KEY `payments_booking_id_index` (`booking_id`),
   ADD KEY `payments_status_index` (`status`);
+
+--
+-- Indexes for table `role_permissions`
+--
+ALTER TABLE `role_permissions`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `role_permissions_role_name_unique` (`role_name`);
 
 --
 -- Indexes for table `sessions`
@@ -518,13 +671,19 @@ ALTER TABLE `web_settings`
 -- AUTO_INCREMENT for table `activities`
 --
 ALTER TABLE `activities`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 
 --
 -- AUTO_INCREMENT for table `bookings`
 --
 ALTER TABLE `bookings`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `custom_menus`
+--
+ALTER TABLE `custom_menus`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -542,25 +701,37 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `lapangans`
 --
 ALTER TABLE `lapangans`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `menu_accesses`
+--
+ALTER TABLE `menu_accesses`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `role_permissions`
+--
+ALTER TABLE `role_permissions`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `web_settings`

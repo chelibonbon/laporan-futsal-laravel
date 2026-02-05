@@ -9,6 +9,13 @@ use App\Models\Lapangan;
 use App\Models\Activity;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Style\Font;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 
 class PaymentController extends Controller
 {
@@ -197,5 +204,167 @@ class PaymentController extends Controller
         ]);
         
         return back()->with('success', 'Pembayaran ditolak dan booking dibatalkan');
+    }
+
+    public function exportPDF(Request $request)
+    {
+        if (!Auth::user()->isManager() && !Auth::user()->isAdmin()) {
+            abort(403);
+        }
+        
+        $start = $request->input('start');
+        $end = $request->input('end');
+        $lapanganId = $request->input('lapangan');
+        
+        // Get payments data
+        $query = Payment::with(['booking.user', 'booking.lapangan'])
+            ->where('status', 'verified');
+            
+        if ($start && $end) {
+            $query->whereHas('booking', function ($qb) use ($start, $end) {
+                $qb->whereBetween('tanggal', [$start, $end]);
+            });
+        }
+        
+        if ($lapanganId) {
+            $query->whereHas('booking', function ($qb) use ($lapanganId) {
+                $qb->where('lapangan_id', $lapanganId);
+            });
+        }
+        
+        $payments = $query->orderBy('created_at', 'desc')->get();
+        
+        // Calculate statistics
+        $totalIncome = $payments->sum('jumlah');
+        
+        // Create PDF
+        $options = new Options();
+        $options->set('defaultFont', 'Arial');
+        $dompdf = new Dompdf($options);
+        
+        $html = view('keuangan.pdf', compact('payments', 'totalIncome', 'start', 'end', 'lapanganId'))->render();
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+        
+        $filename = 'laporan-keuangan-' . date('Y-m-d') . '.pdf';
+        return $dompdf->stream($filename);
+    }
+
+    public function exportExcel(Request $request)
+    {
+        if (!Auth::user()->isManager() && !Auth::user()->isAdmin()) {
+            abort(403);
+        }
+        
+        $start = $request->input('start');
+        $end = $request->input('end');
+        $lapanganId = $request->input('lapangan');
+        
+        // Get payments data
+        $query = Payment::with(['booking.user', 'booking.lapangan'])
+            ->where('status', 'verified');
+            
+        if ($start && $end) {
+            $query->whereHas('booking', function ($qb) use ($start, $end) {
+                $qb->whereBetween('tanggal', [$start, $end]);
+            });
+        }
+        
+        if ($lapanganId) {
+            $query->whereHas('booking', function ($qb) use ($lapanganId) {
+                $qb->where('lapangan_id', $lapanganId);
+            });
+        }
+        
+        $payments = $query->orderBy('created_at', 'desc')->get();
+        
+        // Create Excel
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        
+        // Set title
+        $sheet->setCellValue('A1', 'LAPORAN KEUANGAN');
+        $sheet->mergeCells('A1:H1');
+        $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(16);
+        $sheet->getStyle('A1')->getAlignment()->setHorizontal('center');
+        
+        // Set period
+        $period = 'Periode: ';
+        if ($start && $end) {
+            $period .= $start . ' s/d ' . $end;
+        } else {
+            $period .= 'Semua Data';
+        }
+        $sheet->setCellValue('A2', $period);
+        $sheet->mergeCells('A2:H2');
+        $sheet->getStyle('A2')->getFont()->setItalic(true);
+        $sheet->getStyle('A2')->getAlignment()->setHorizontal('center');
+        
+        // Headers
+        $headers = ['Tanggal', 'Kode Booking', 'Customer', 'Lapangan', 'Jam', 'Total', 'Status', 'Payment'];
+        $sheet->fromArray($headers, null, 'A4');
+        
+        // Style headers
+        $headerStyle = $sheet->getStyle('A4:H4');
+        $headerStyle->getFont()->setBold(true);
+        $headerStyle->getFill()->setFillType(Fill::FILL_SOLID);
+        $headerStyle->getFill()->getStartColor()->setARGB('FFE0E0E0');
+        $headerStyle->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
+        
+        // Data
+        $row = 5;
+        $totalIncome = 0;
+        
+        foreach ($payments as $payment) {
+            $sheet->setCellValue('A' . $row, $payment->created_at->format('Y-m-d'));
+            $sheet->setCellValue('B' . $row, 'BK' . str_pad($payment->booking_id, 3, '0', STR_PAD_LEFT));
+            $sheet->setCellValue('C' . $row, $payment->booking->user->name ?? 'Unknown');
+            $sheet->setCellValue('D' . $row, $payment->booking->lapangan->nama ?? 'Unknown');
+            
+            $jam = '-';
+            if ($payment->booking->jam_mulai && $payment->booking->jam_selesai) {
+                $jam = \Carbon\Carbon::parse($payment->booking->jam_mulai)->format('H:i') . '-' . 
+                       \Carbon\Carbon::parse($payment->booking->jam_selesai)->format('H:i');
+            }
+            $sheet->setCellValue('E' . $row, $jam);
+            
+            $sheet->setCellValue('F' . $row, $payment->jumlah);
+            $sheet->setCellValue('G' . $row, ucfirst($payment->booking->status ?? ''));
+            $sheet->setCellValue('H' . $row, ucfirst($payment->status));
+            
+            // Style data row
+            $sheet->getStyle('A' . $row . ':H' . $row)->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
+            
+            $totalIncome += $payment->jumlah;
+            $row++;
+        }
+        
+        // Total
+        $sheet->setCellValue('E' . ($row + 1), 'TOTAL:');
+        $sheet->setCellValue('F' . ($row + 1), $totalIncome);
+        $sheet->getStyle('E' . ($row + 1) . ':F' . ($row + 1))->getFont()->setBold(true);
+        $sheet->getStyle('E' . ($row + 1) . ':F' . ($row + 1))->getFill()->setFillType(Fill::FILL_SOLID);
+        $sheet->getStyle('E' . ($row + 1) . ':F' . ($row + 1))->getFill()->getStartColor()->setARGB('FFE0E0E0');
+        
+        // Auto-size columns
+        foreach (range('A', 'H') as $column) {
+            $sheet->getColumnDimension($column)->setAutoSize(true);
+        }
+        
+        // Format currency column
+        $sheet->getStyle('F' . '5:F' . $row)->getNumberFormat()->setFormatCode('#,##0');
+        $sheet->getStyle('F' . ($row + 1))->getNumberFormat()->setFormatCode('#,##0');
+        
+        $filename = 'laporan-keuangan-' . date('Y-m-d') . '.xlsx';
+        
+        $writer = new Xlsx($spreadsheet);
+        
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="' . $filename . '"');
+        header('Cache-Control: max-age=0');
+        
+        $writer->save('php://output');
+        exit;
     }
 }

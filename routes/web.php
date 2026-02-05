@@ -9,6 +9,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MenuAccessController;
 use Illuminate\Support\Facades\Route;
 
 // Guest routes (login/register)
@@ -27,8 +28,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
 
-// Bookings - dengan validasi role
-Route::middleware('auth')->group(function () {
+// Bookings - dengan middleware menu access
+Route::middleware(['auth', 'menu.access:bookings'])->group(function () {
     Route::get('/bookings', [BookingController::class, 'index'])->name('bookings.index');
     Route::get('/bookings/create', [BookingController::class, 'create'])->name('bookings.create');
     Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
@@ -43,8 +44,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/bookings/{id}/upload-payment', [PaymentController::class, 'uploadProof'])->name('bookings.uploadPayment');
 });
 
-// Users - hanya admin dan superadmin
-Route::middleware(['auth', 'role:admin|superadmin'])->group(function () {
+// Users - dengan middleware menu access
+Route::middleware(['auth', 'menu.access:users'])->group(function () {
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     // Route create harus sebelum route dengan parameter {id}
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
@@ -57,17 +58,14 @@ Route::middleware(['auth', 'role:admin|superadmin'])->group(function () {
     Route::post('/users/{id}/update-role', [UserController::class, 'updateRole'])->name('users.updateRole');
 });
 
-// Lapangans - semua bisa lihat, hanya admin yang bisa CRUD
-Route::middleware('auth')->group(function () {
+// Lapangans - dengan middleware menu access
+Route::middleware(['auth', 'menu.access:lapangans'])->group(function () {
     Route::get('/lapangans', [LapanganController::class, 'index'])->name('lapangans.index');
-    // Route create harus sebelum route dengan parameter {id}
-    Route::middleware(['role:admin|superadmin'])->group(function () {
-        Route::get('/lapangans/create', [LapanganController::class, 'create'])->name('lapangans.create');
-        Route::post('/lapangans', [LapanganController::class, 'store'])->name('lapangans.store');
-    });
     Route::get('/lapangans/{id}', [LapanganController::class, 'show'])->name('lapangans.show');
     // CRUD routes untuk admin/superadmin
     Route::middleware(['role:admin|superadmin'])->group(function () {
+        Route::get('/lapangans/create', [LapanganController::class, 'create'])->name('lapangans.create');
+        Route::post('/lapangans', [LapanganController::class, 'store'])->name('lapangans.store');
         Route::get('/lapangans/{id}/edit', [LapanganController::class, 'edit'])->name('lapangans.edit');
         Route::put('/lapangans/{id}', [LapanganController::class, 'update'])->name('lapangans.update');
         Route::delete('/lapangans/{id}', [LapanganController::class, 'destroy'])->name('lapangans.destroy');
@@ -75,8 +73,8 @@ Route::middleware('auth')->group(function () {
     });
 });
 
-// Activities - semua bisa lihat
-Route::middleware('auth')->group(function () {
+// Activities - dengan middleware menu access
+Route::middleware(['auth', 'menu.access:activities'])->group(function () {
     Route::get('/activities', [ActivityController::class, 'index'])->name('activities.index');
     Route::get('/activities/{id}', [ActivityController::class, 'show'])->name('activities.show');
 });
@@ -85,11 +83,17 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'role:superadmin'])->group(function () {
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
     Route::post('/settings', [SettingController::class, 'update'])->name('settings.update');
+    
+    // Hak Akses Menu
+    Route::get('/hakakses', [MenuAccessController::class, 'index'])->name('hakakses.index');
+    Route::put('/hakakses', [MenuAccessController::class, 'update'])->name('hakakses.update');
 });
 
-// Keuangan - manager dan admin
-Route::middleware(['auth', 'role:manager|admin'])->group(function () {
+// Keuangan - dengan middleware menu access
+Route::middleware(['auth', 'menu.access:keuangan'])->group(function () {
     Route::get('/keuangan', [PaymentController::class, 'index'])->name('keuangan.index');
+    Route::get('/keuangan/export-pdf', [PaymentController::class, 'exportPDF'])->name('keuangan.export-pdf');
+    Route::get('/keuangan/export-excel', [PaymentController::class, 'exportExcel'])->name('keuangan.export-excel');
     Route::post('/payments/{id}/verify', [PaymentController::class, 'verify'])->name('payments.verify');
     Route::post('/payments/{id}/reject', [PaymentController::class, 'rejectPayment'])->name('payments.reject');
 });

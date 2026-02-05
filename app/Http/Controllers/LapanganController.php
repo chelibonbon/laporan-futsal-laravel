@@ -79,7 +79,7 @@ class LapanganController extends Controller
             'harga_per_jam' => 'required|numeric|min:0',
             'fasilitas' => 'nullable|string',
             'status' => 'required|in:aktif,tidak_aktif',
-            'foto' => 'nullable|image|max:2048',
+            'foto' => 'nullable|image|max:10240',
         ]);
         
         $lapangan = Lapangan::create([
@@ -145,7 +145,7 @@ class LapanganController extends Controller
             'harga_per_jam' => 'required|numeric|min:0',
             'fasilitas' => 'nullable|string',
             'status' => 'required|in:aktif,tidak_aktif',
-            'foto' => 'nullable|image|max:2048',
+            'foto' => 'nullable|image|max:10240',
         ]);
         
         $lapangan->update([

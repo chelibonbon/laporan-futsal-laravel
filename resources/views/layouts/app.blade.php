@@ -131,14 +131,17 @@ if (!function_exists('getPaymentBadgeHtml')) {
 
                 <ul class="menu-inner py-1">
                     <!-- Dashboard -->
+                    @if(hasMenuAccess('dashboard'))
                     <li class="menu-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                         <a href="{{ route('dashboard') }}" class="menu-link">
                             <i class="menu-icon tf-icons fas fa-tachometer-alt"></i>
                             <div data-i18n="Dashboard">Dashboard</div>
                         </a>
                     </li>
+                    @endif
 
                     <!-- Bookings -->
+                    @if(hasMenuAccess('bookings'))
                     <li class="menu-item {{ request()->routeIs('bookings.*') ? 'active' : '' }}">
                         <a href="{{ route('bookings.index') }}" class="menu-link">
                             <i class="menu-icon tf-icons fas fa-calendar"></i>
@@ -153,8 +156,10 @@ if (!function_exists('getPaymentBadgeHtml')) {
                             </div>
                         </a>
                     </li>
+                    @endif
 
                     <!-- Lapangans -->
+                    @if(hasMenuAccess('lapangans'))
                     <li class="menu-item {{ request()->routeIs('lapangans.*') ? 'active' : '' }}">
                         <a href="{{ route('lapangans.index') }}" class="menu-link">
                             <i class="menu-icon tf-icons fas fa-map"></i>
@@ -167,53 +172,60 @@ if (!function_exists('getPaymentBadgeHtml')) {
                             </div>
                         </a>
                     </li>
-
-                    <!-- Users - hanya admin dan superadmin -->
-                    @if(Auth::user()->isAdmin() || Auth::user()->isSuperAdmin())
-                        <li class="menu-item {{ request()->routeIs('users.*') ? 'active' : '' }}">
-                            <a href="{{ route('users.index') }}" class="menu-link">
-                                <i class="menu-icon tf-icons fas fa-users"></i>
-                                <div data-i18n="Users">Kelola User</div>
-                            </a>
-                        </li>
                     @endif
 
-                    <!-- Keuangan - manager dan admin -->
-                    @if(Auth::user()->isManager() || Auth::user()->isAdmin())
-                        <li class="menu-item {{ request()->routeIs('keuangan.*') ? 'active' : '' }}">
-                            <a href="{{ route('keuangan.index') }}" class="menu-link">
-                                <i class="menu-icon tf-icons fas fa-money-bill-wave"></i>
-                                <div data-i18n="Keuangan">Keuangan</div>
-                            </a>
-                        </li>
+                    <!-- Users -->
+                    @if(hasMenuAccess('users'))
+                    <li class="menu-item {{ request()->routeIs('users.*') ? 'active' : '' }}">
+                        <a href="{{ route('users.index') }}" class="menu-link">
+                            <i class="menu-icon tf-icons fas fa-users"></i>
+                            <div data-i18n="Users">Kelola User</div>
+                        </a>
+                    </li>
                     @endif
 
-                    <!-- Settings - hanya superadmin -->
-                    @if(Auth::user()->isSuperAdmin())
-                        <li class="menu-header mt-5">
-                            <span class="menu-header-text">Settings</span>
-                        </li>
-                        <li class="menu-item {{ request()->routeIs('settings.*') ? 'active' : '' }}">
-                            <a href="{{ route('settings.index') }}" class="menu-link">
-                                <i class="menu-icon tf-icons fas fa-cog"></i>
-                                <div data-i18n="Web Setting">Web Setting</div>
-                            </a>
-                        </li>
-                        <li class="menu-item {{ request()->routeIs('hakakses.*') ? 'active' : '' }}">
-                            <a href="{{ route('users.index') }}" class="menu-link">
-                                <i class="menu-icon tf-icons fas fa-user-shield"></i>
-                                <div data-i18n="Hak Akses">Hak Akses</div>
-                            </a>
-                        </li>
+                    <!-- Keuangan -->
+                    @if(hasMenuAccess('keuangan'))
+                    <li class="menu-item {{ request()->routeIs('keuangan.*') ? 'active' : '' }}">
+                        <a href="{{ route('keuangan.index') }}" class="menu-link">
+                            <i class="menu-icon tf-icons fas fa-money-bill-wave"></i>
+                            <div data-i18n="Keuangan">Keuangan</div>
+                        </a>
+                    </li>
+                    @endif
+
+                    <!-- Settings -->
+                    @if(hasMenuAccess('settings'))
+                    <li class="menu-header mt-5">
+                        <span class="menu-header-text">Settings</span>
+                    </li>
+                    <li class="menu-item {{ request()->routeIs('settings.*') ? 'active' : '' }}">
+                        <a href="{{ route('settings.index') }}" class="menu-link">
+                            <i class="menu-icon tf-icons fas fa-cog"></i>
+                            <div data-i18n="Web Setting">Web Setting</div>
+                        </a>
+                    </li>
+                    @endif
+
+                    <!-- Hak Akses -->
+                    @if(hasMenuAccess('hakakses'))
+                    <li class="menu-item {{ request()->routeIs('hakakses.*') ? 'active' : '' }}">
+                        <a href="{{ route('hakakses.index') }}" class="menu-link">
+                            <i class="menu-icon tf-icons fas fa-user-shield"></i>
+                            <div data-i18n="Hak Akses">Hak Akses</div>
+                        </a>
+                    </li>
                     @endif
 
                     <!-- Activity Log -->
+                    @if(hasMenuAccess('activities'))
                     <li class="menu-item {{ request()->routeIs('activities.*') ? 'active' : '' }}">
                         <a href="{{ route('activities.index') }}" class="menu-link">
                             <i class="menu-icon tf-icons fas fa-history"></i>
                             <div data-i18n="Log Activity">Log Activity</div>
                         </a>
                     </li>
+                    @endif
                 </ul>
             </aside>
             <!-- / Menu -->
@@ -299,13 +311,6 @@ if (!function_exists('getPaymentBadgeHtml')) {
                         @if(session('success'))
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 {{ session('success') }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                        @endif
-                        
-                        @if(session('error'))
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                {{ session('error') }}
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         @endif
