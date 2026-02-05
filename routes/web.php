@@ -61,17 +61,23 @@ Route::middleware(['auth', 'menu.access:users'])->group(function () {
 // Lapangans - dengan middleware menu access
 Route::middleware(['auth', 'menu.access:lapangans'])->group(function () {
     Route::get('/lapangans', [LapanganController::class, 'index'])->name('lapangans.index');
-    Route::get('/lapangans/{id}', [LapanganController::class, 'show'])->name('lapangans.show');
-    // CRUD routes untuk admin/superadmin
-    Route::middleware(['role:admin|superadmin'])->group(function () {
-        Route::get('/lapangans/create', [LapanganController::class, 'create'])->name('lapangans.create');
-        Route::post('/lapangans', [LapanganController::class, 'store'])->name('lapangans.store');
-        Route::get('/lapangans/{id}/edit', [LapanganController::class, 'edit'])->name('lapangans.edit');
-        Route::put('/lapangans/{id}', [LapanganController::class, 'update'])->name('lapangans.update');
-        Route::delete('/lapangans/{id}', [LapanganController::class, 'destroy'])->name('lapangans.destroy');
-        Route::post('/lapangans/{id}/toggle-status', [LapanganController::class, 'toggleStatus'])->name('lapangans.toggleStatus');
-    });
+
+    // ⛔ cegah "create" masuk ke sini
+    Route::get('/lapangans/{id}', [LapanganController::class, 'show'])
+        ->whereNumber('id')
+        ->name('lapangans.show');
 });
+
+// CRUD routes untuk admin/superadmin - separate from menu access check
+Route::middleware(['auth', 'role:admin|superadmin'])->group(function () {
+    Route::get('/lapangans/create', [LapanganController::class, 'create'])->name('lapangans.create');
+    Route::post('/lapangans', [LapanganController::class, 'store'])->name('lapangans.store');
+    Route::get('/lapangans/{id}/edit', [LapanganController::class, 'edit'])->name('lapangans.edit');
+    Route::put('/lapangans/{id}', [LapanganController::class, 'update'])->name('lapangans.update');
+    Route::delete('/lapangans/{id}', [LapanganController::class, 'destroy'])->name('lapangans.destroy');
+    Route::post('/lapangans/{id}/toggle-status', [LapanganController::class, 'toggleStatus'])->name('lapangans.toggleStatus');
+});
+
 
 // Activities - dengan middleware menu access
 Route::middleware(['auth', 'menu.access:activities'])->group(function () {

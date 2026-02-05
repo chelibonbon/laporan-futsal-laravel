@@ -58,10 +58,6 @@ class LapanganController extends Controller
 
     public function create()
     {
-        if (!Auth::user()->isAdmin() && !Auth::user()->isSuperAdmin()) {
-            abort(403);
-        }
-        
         return view('lapangans.create');
     }
 
